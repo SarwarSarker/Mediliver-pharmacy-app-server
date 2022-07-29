@@ -1,13 +1,11 @@
 const express = require("express");
-const dotenv = require("dotenv");
+const dotenv = require('dotenv').config();
 const connectDB = require("./config/db");
 
 const app = express();
 const cors = require("cors");
-const { errorHandler } = require("./middleware/errormiddleware");
 
 app.use(cors());
-dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,12 +17,20 @@ connectDB();
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/products", require("./routes/productRoute"));
 
-app.use(errorHandler);
-
 app.get("/api", (req, res) => {
   res.send("Successfull response");
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening at ${port}`);
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
 });
+
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
