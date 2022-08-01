@@ -16,6 +16,7 @@ connectDB();
 
 app.use("/api/users", require("./routes/userRoute"));
 app.use("/api/products", require("./routes/productRoute"));
+app.use("/api/orders", require("./routes/orderRoute"));
 
 app.get("/api", (req, res) => {
   res.send("Successfull response");

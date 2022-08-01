@@ -12,7 +12,7 @@ const { auth } = require("../middleware/authMiddleware");
 
 router.route("/").get(getOrders);
 router.route("/:id").get(getMyOrder);
-router.route("/").post([auth, admin], setOrder);
+router.route("/").post(auth, setOrder);
 router.route("/:id").put([auth, admin], updateOrder);
 router.route("/:id").delete([auth, admin],deleteOrder);
 
