@@ -30,7 +30,7 @@ const orderSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
-        price: {
+        unit_price: {
           type: Number,
           required: true,
         },
@@ -40,11 +40,6 @@ const orderSchema = new mongoose.Schema(
         },
         image: {
           type: String,
-          required: true,
-        },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
           required: true,
         },
       },
